@@ -1,0 +1,23 @@
+{
+  "name": "iee-discord-bot",
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Thomas Soumpasis <thomasoumpasis@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
