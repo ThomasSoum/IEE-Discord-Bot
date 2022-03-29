@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "591ca2b75c39e553cdf0a50c",
+    "name": "1ο Εξάμηνο",
+    "value": "semester_1"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a50d",
+    "name": "2ο εξάμηνο",
+    "value": "semester_2"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a50e",
+    "name": "3ο Εξάμηνο",
+    "value": "semester_3"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a50f",
+    "name": "4ο Εξάμηνο",
+    "value": "semester_4"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a510",
+    "name": "5ο Εξάμηνο",
+    "value": "semester_5"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a511",
+    "name": "6ο Εξάμηνο",
+    "value": "semester_6"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a512",
+    "name": "7ο Εξάμηνο",
+    "value": "semester_7"
+  },
+  {
+    "_id": "5d7d10e62aec0b1fec7c0053",
+    "name": "8ο Εξάμηνο",
+    "value": "semester_8"
+  },
+  {
+    "_id": "5d7d10ff2aec0b1fec7c0055",
+    "name": "9ο Εξάμηνο",
+    "value": "semester_9"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a516",
+    "name": "Πτυχιακή/Διπλωματική Εργασία",
+    "value": "thesis"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a513",
+    "name": "Νέα Τμήματος",
+    "value": "class_news"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a51e",
+    "name": "Ανακοινώσεις Γραμματείας",
+    "value": "secretary_announcements"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a514",
+    "name": "Τεχνικά Θέματα",
+    "value": "technical_issues"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a515",
+    "name": "Πρακτική Άσκηση",
+    "value": "placements"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a517",
+    "name": "Erasmus",
+    "value": "erasmus"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a518",
+    "name": "Παρουσιάσεις πτυχιακών",
+    "value": "thesis_presentations"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a51a",
+    "name": "Μεταπτυχιακά",
+    "value": "postgraduate_studies"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a51b",
+    "name": "IEEE Student Branch",
+    "value": "IEEE_student_branch"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a51c",
+    "name": "Άλλα δημόσια νέα",
+    "value": "other_public_news"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a51d",
+    "name": "Ερευνητικά Προγράμματα",
+    "value": "research_projects"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a51f",
+    "name": "Εκδηλώσεις",
+    "value": "events"
+  },
+  {
+    "_id": "591ca2b75c39e553cdf0a520",
+    "name": "ΠΜΣ Ευφυείς Τεχνολογίες Διαδικτύου",
+    "value": "MScWebIntelligence"
+  },
+  {
+    "_id": "59496d72fd91f628c3282e30",
+    "name": "Διακηρύξεις - Προκηρύξεις",
+    "value": "proclamations"
+  },
+  {
+    "_id": "619a85a5d92220562bcf0ec6",
+    "name": "Νέα COVID",
+    "value": "covid_cases"
+  }
+]
