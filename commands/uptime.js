@@ -6,6 +6,7 @@ module.exports = {
     .setName('uptime')
     .setDescription("Replies with the bot's uptime"),
   async execute(interaction) {
+    const isNotDM = interaction.guild === null ? false : true
     let totalSeconds = (interaction.client.uptime / 1000);
 
     let days = Math.floor(totalSeconds / 86400);
@@ -26,6 +27,6 @@ module.exports = {
           value: `\`${days}\` days, \`${hours}\` hours, \`${minutes}\` minutes and \`${seconds}\` seconds`
         }
       )
-    await interaction.reply({ embeds: [msg], ephemeral: true });
+    await interaction.reply({ embeds: [msg], ephemeral: isNotDM });
   }
 }

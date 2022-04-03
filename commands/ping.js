@@ -5,10 +5,11 @@ module.exports = {
     .setName('ping')
     .setDescription('Pong! 🏓'),
   async execute(interaction) {
-    await interaction.reply('Calculating ping...').then(() => {
+    const isNotDM = interaction.guild === null ? false : true
+    await interaction.reply({ content: 'Calculating ping...', ephemeral: isNotDM }).then(() => {
       const latency = Date.now() - interaction.createdTimestamp;
       const apiLatency = Math.round(interaction.client.ws.ping);
-      interaction.editReply(`🏓Pong! | Bot latency: ${latency}ms, API latency: ${apiLatency}ms`);
+      interaction.editReply({ content: `🏓Pong! | Bot latency: ${latency}ms, API latency: ${apiLatency}ms`, ephemeral: isNotDM });
     });
   }
 }

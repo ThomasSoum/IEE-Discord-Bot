@@ -6,6 +6,7 @@ module.exports = {
     .setName('map')
     .setDescription('The University Map'),
   async execute(interaction) {
-    await interaction.reply({ files: [path.join(__dirname, '../images/campus_map.jpg')] });
+    const isNotDM = interaction.guild === null ? false : true
+    await interaction.reply({ files: [path.join(__dirname, '../images/campus_map.jpg')], ephemeral: isNotDM });
   }
 }

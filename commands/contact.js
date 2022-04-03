@@ -7,6 +7,7 @@ module.exports = {
     .setName('contact')
     .setDescription("Replies with the department's contact information"),
   async execute(interaction) {
+    const isNotDM = interaction.guild === null ? false : true
     const msg = new MessageEmbed()
       .setColor('#0d86e3')
       .setTitle('Tμήμα Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων')
@@ -19,6 +20,6 @@ module.exports = {
         { name: 'Fax:', value: '2310 791132', inline: true }
       )
       .setFooter({ text: 'Για τα στοιχεία επικοινωνίας των καθηγητών χρησιμοποίησε την εντολή: /professors' })
-    await interaction.reply({ files: [{ attachment: path.join(__dirname, '../images/department_logo.png'), name: 'department_logo.png' }], embeds: [msg], ephemeral: true });
+    await interaction.reply({ files: [{ attachment: path.join(__dirname, '../images/department_logo.png'), name: 'department_logo.png' }], embeds: [msg], ephemeral: isNotDM });
   }
 }
