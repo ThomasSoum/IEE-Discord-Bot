@@ -1,3 +1,9 @@
+# Local Database
+databases/announcements-db
+
+# Downloads
+downloads/
+
 # Logs
 logs
 *.log

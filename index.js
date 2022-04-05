@@ -1,6 +1,8 @@
 const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const fs = require('node:fs');
 require('dotenv').config();
+const cron = require('node-cron');
+const checkForNewAnnouncements = require('./monitor');
 
 const bot = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES],
@@ -17,6 +19,9 @@ for (const file of commandFiles) {
 
 bot.once('ready', async () => {
   console.log('Ready!')
+  cron.schedule("*/6 * * * *", () => {
+    checkForNewAnnouncements(bot);
+  });
 })
 
 
