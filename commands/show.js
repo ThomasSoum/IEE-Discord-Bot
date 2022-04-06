@@ -84,12 +84,12 @@ module.exports = {
         const filter = (interaction) => interaction.user.id === interaction.member.id;
         let collector = interaction.channel.createMessageComponentCollector({ filter, time: 30000 })
 
-        collector.on('collect', (btnInt) => {
+        collector.on('collect', async (btnInt) => {
           if (!btnInt) {
             return
           }
 
-          btnInt.deferUpdate()
+          await btnInt.deferUpdate()
 
           if (btnInt.customId !== 'back' && btnInt.customId !== 'forward') {
             return
@@ -103,15 +103,15 @@ module.exports = {
             ++pages[id]
           }
 
-          interaction.editReply({
+          await interaction.editReply({
             embeds: [embeds[pages[id]]],
             components: components(false, id),
           })
 
         });
 
-        collector.on('end', () => {
-          interaction.editReply({ components: components(true) })
+        collector.on('end', async () => {
+          await interaction.editReply({ components: components(true) })
         })
       } catch (error) {
         console.log(`There was an error while updating a server setting! ${error}`)
