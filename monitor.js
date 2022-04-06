@@ -3,13 +3,10 @@ const mongo = require('./databases/mongo');
 const serverSettingsSchema = require('./schemas/server-settings-schema');
 const apiCategories = require('./data/api-categories.json');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const { Level } = require('level');
-const util = require('util');
-const db = new Level('./databases/announcements-db', { valueEncoding: 'json' });
-util.promisify(Level);
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+const announcementsCacheSchema = require('./schemas/announcements-cache-schema');
 
 async function getAuthToken() {
   const params = new URLSearchParams({
@@ -81,29 +78,35 @@ async function getAnnouncementDetails(authToken, announcements) {
 
 async function compareWithDB(announcements) {
   if (!announcements) throw 'announcements is a required field for function compareWithDB';
-  const array = await db.get('announcements')
-    .then(data => {
-      let newAnnouncements = [];
-      if (data.announcementsArray.length === 0) {
-        throw 'Announcement array is empty';
+  const newAnnouncements = await mongo().then(async (mongoose) => {
+    let newAnnouncements = []
+    try {
+      announcementsCache = await announcementsCacheSchema.findOne({ _id: 'announcementCache' }).exec()
+      if (!announcementsCache) {
+        console.log('No document found. Creating it now!');
+        try {
+          const dbInit = await mongo().then(async (mongoose) => {
+            const announcementsCacheInit = new announcementsCacheSchema({ _id: 'announcementCache', announcements: announcements });
+            await announcementsCacheInit.save();
+          })
+          return 'DB Initialization'
+        } catch (error) {
+          console.log(error);
+          throw `Error while initializing DB ${error}`;
+        }
       }
-      for (let i = data.announcementsArray.length - 1; i >= 0; i--) {
-        if (!data.announcementsArray.find((ann) => ann._id === announcements[i]._id)) {
+      for (let i = announcementsCache.announcements.length - 1; i >= 0; i--) {
+        if (!announcementsCache.announcements.find((ann) => ann._id === announcements[i]._id)) {
           newAnnouncements.push(announcements[i]._id);
         }
       }
       return newAnnouncements;
-    })
-    .catch(error => {
-      if (error.code === 'LEVEL_NOT_FOUND') {
-        db.put('announcements', { announcementsArray: announcements })
-          .catch(error => {
-            throw error;
-          })
-      }
-      throw error;
-    })
-  return array;
+    } catch (error) {
+      console.log(error);
+      throw `Error while trying to find doc ${error}`;
+    }
+  })
+  return newAnnouncements;
 }
 
 async function getServers(bot) {
@@ -172,10 +175,24 @@ async function generateEmbed(announcement) {
 
 async function updateDatabase(announcements) {
   if (!announcements) throw 'announcements is a required field for function updateDatabase';
-  await db.put('announcements', { announcementsArray: announcements })
-    .catch(error => {
-      throw error;
-    })
+  await mongo().then(async (mongoose) => {
+    try {
+      await announcementsCacheSchema.findOneAndUpdate({
+        _id: 'announcementCache'
+      },
+        {
+          _id: 'announcementCache',
+          announcements: announcements
+        },
+        {
+          upsert: true
+        }
+      )
+    } catch (error) {
+      console.log(error);
+      throw `Error while trying to update DB ${error}`;
+    }
+  })
   return;
 }
 
@@ -188,6 +205,10 @@ module.exports = async function main(bot) {
       const authToken = await getAuthToken();
       const announcementToCheck = await getLastTenAnnouncements(authToken);
       const newAnnouncements = await compareWithDB(announcementToCheck);
+      if (newAnnouncements === 'DB Initialization') {
+        console.log('DB Initialization')
+        return;
+      }
       if (newAnnouncements.length === 0) {
         return;
       }
@@ -196,9 +217,9 @@ module.exports = async function main(bot) {
       for (announcement of announcements) {
         let hasAttachment = false;
         const embed = await generateEmbed(announcement[0]);
+        let attachments = [];
         if (!(announcement[0].attachments.length === 0)) {
           hasAttachment = true;
-          let attachments = [];
           const files = await downloadFiles(authToken, announcement[0].attachments, announcement[0]._id);
           for (i = 0; i < files.length; i++) {
             attachments.push({ attachment: path.join(__dirname, `./downloads/${announcement[0]._id}/${files[i]}`), name: files[i] });

@@ -19,6 +19,7 @@ for (const file of commandFiles) {
 
 bot.once('ready', async () => {
   console.log('Ready!')
+  checkForNewAnnouncements(bot);
   cron.schedule("*/6 * * * *", () => {
     checkForNewAnnouncements(bot);
   });
