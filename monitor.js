@@ -199,7 +199,7 @@ module.exports = async function main(bot) {
         if (!(announcement[0].attachments.length === 0)) {
           hasAttachment = true;
           let attachments = [];
-          const files = await downloadFiles(token, announcement[0].attachments, announcement[0]._id);
+          const files = await downloadFiles(authToken, announcement[0].attachments, announcement[0]._id);
           for (i = 0; i < files.length; i++) {
             attachments.push({ attachment: path.join(__dirname, `./downloads/${announcement[0]._id}/${files[i]}`), name: files[i] });
           }
