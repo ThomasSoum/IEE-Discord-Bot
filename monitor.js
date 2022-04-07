@@ -255,6 +255,7 @@ module.exports = async function main(bot) {
       while (updateDBretries) {
         try {
           await updateDatabase(announcementToCheck);
+          break;
         } catch (error) {
           updateDBretries -= 1;
           console.log(`Update database retries left: ${updateDBretries}`);
